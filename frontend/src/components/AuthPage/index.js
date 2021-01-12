@@ -6,8 +6,9 @@ import { useHttp } from '../../hooks/http.hook';
 
 
 
+
 export const AuthPage = () => {
-    const { loading, error, request } = useHttp()
+    const { loading, request } = useHttp()
 
     const [form, setForm] = useState({
         email: "", password: ""
@@ -17,9 +18,11 @@ export const AuthPage = () => {
         setForm({ ...form, [event.target.name]: event.target.value })
     }
 
-    const registerhandler = async () => {
+    const registerHandler = async () => {
         try {
-            const data = await request('/api/url/register')
+            const data = await request('/api/auth/register', "POST", { ...form })
+            console.log('Data', data)
+
         } catch (error) {
 
         }
@@ -62,17 +65,21 @@ export const AuthPage = () => {
                 {/* <div className="" style={{ margin: "auto" }}> */}
                 <div className="row g-2 justify-content-sm-center">
                     <Button
-                        // disabled={isInvalid} 
-                        type="submit" className="col-sm-6 col-md-4  ml-1 mr-1 mb-2"
+                        disabled={loading}
+                        // type="submit"
+                        className="col-sm-6 col-md-4  ml-1 mr-1 mb-2"
                         variant="outline-dark">
                         Sign In
         </Button>
 
-                    <Button type="submit" className="col-sm-6 col-md-4  ml-1 mr-1 mb-2"
+                    <Button
+                        // type="submit"
+                        className="col-sm-6 col-md-4  ml-1 mr-1 mb-2"
                         variant="outline-dark"
-                    // onClick={() => this.logInGuest(guestEmail, guestPassword)}
+                        onClick={registerHandler}
+                        disabled={loading}
                     >
-                        Continue as guest
+                        Sign Up
         </Button>
                 </div>
 
