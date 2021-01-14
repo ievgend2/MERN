@@ -28,7 +28,7 @@ router.post(
       const candidate = await User.findOne({ email })
 
       if (candidate) {
-        response.status(400).json({ message: "User already in use." })
+        return response.status(400).json({ message: "User already in use." })
       }
 
       const hashedPassword = await bcrypt.hash(password, 12)
@@ -37,7 +37,7 @@ router.post(
       response.status(201).json({ message: 'User has been created' })
     }
     catch (e) {
-      response.status(500).json({ message: "Something went wrong, please try again." })
+      return response.status(500).json({ message: "Something went wrong, please try again." })
     }
   })
 
@@ -72,7 +72,7 @@ router.post(
       const token = jwt.sign(
         { userId: user.id },
         config.get('jwtSecret'),
-        { expiresIn: '1h' }
+        // { expiresIn: '1h' }
       )
       response.json({ token, userId: user.id })
     }

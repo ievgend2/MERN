@@ -4,7 +4,9 @@
   "description": "Mern Stack",
   "main": "app.js",
   "scripts": {
-    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm start\" "
+    "backend": "npm run server --prefix backend",
+    "frontend": "npm run start --prefix frontend",
+    "start": "concurrently \"npm run backend\" \"npm run frontend\""
   },
   "repository": {
     "type": "git",
